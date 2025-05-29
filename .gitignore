@@ -1,0 +1,70 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# User-specific files
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+*.opendb.meta
+*.VC.db.meta
+
+# Crash and error logs
+sysinfo.txt
+*.stacktrace
+
+# Unity3D generated meta files
+*.pidb.meta
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+Thumbs.db
+Desktop.ini
+
+# Other
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+*.save
+*.backup
+*.cache
+*.log
+*.vs/ 
