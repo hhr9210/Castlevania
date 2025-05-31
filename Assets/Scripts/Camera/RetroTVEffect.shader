@@ -1,4 +1,4 @@
-Shader "Custom/RetroTVEffect_Final"
+Shader "Custom/RetroTV"
 {
     Properties
     {

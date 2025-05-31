@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_RetroTVEffect
-  m_Shader: {fileID: 4800000, guid: dfcc3fe1bdacec84aa67c6f3fa43476b, type: 3}
+  m_Name: Bloom
+  m_Shader: {fileID: 4800000, guid: 0530c94a041259442af572a2de125b26, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,16 +29,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorOffset: 0.0024
-    - _Distortion: 0.108
-    - _EdgeFeather: 0.174
-    - _JitterStrength: 0.00029
-    - _LineCount: 387
-    - _NoiseStrength: 0.016
-    - _PixelSize: 1
-    - _ScanlineStrength: 0.579
-    - _Shutdown: 0
-    - _SignalLoss: 0
-    - _Vignette: 0
-    m_Colors: []
+    - _BlurSize: 3
+    - _Intensity: 2.9
+    - _Threshold: 0.8
+    m_Colors:
+    - _BloomColor: {r: 0.49618366, g: 0.8095559, b: 0.85660374, a: 1}
   m_BuildTextureStacks: []

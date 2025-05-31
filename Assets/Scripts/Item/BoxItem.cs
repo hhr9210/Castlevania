@@ -5,15 +5,15 @@ using System.Collections;
 
 public class BoxItem : MonoBehaviour
 {
-    public PlayerItem playerInventory;   // 你之前的道具管理脚本
+    public PlayerItem playerInventory;
     public Transform player;
     public float interactDistance = 2f;
 
-    public GameObject interactUIPanel;   // 按F提示UI面板
+    public GameObject interactUIPanel;
     public TMP_Text interactText;
 
-    public GameObject lootUIPanel;       // 宝箱物品信息显示面板
-    public TMP_Text lootText;            // 宝箱物品信息文本
+    public GameObject lootUIPanel;
+    public TMP_Text lootText;
 
     [System.Serializable]
     public class ChestItem
@@ -22,7 +22,7 @@ public class BoxItem : MonoBehaviour
         public int quantity;
     }
 
-    public ChestItem[] itemsInChest;     // 宝箱内道具列表
+    public ChestItem[] itemsInChest;
 
     private bool isPlayerNear = false;
     private bool isChestOpened = false;
@@ -76,19 +76,16 @@ public class BoxItem : MonoBehaviour
 
         Debug.Log(sb.ToString());
 
-        Destroy(gameObject);
-
-        // 启动协程2.5秒后隐藏宝箱物品信息面板
-        StartCoroutine(HideLootPanelAfterSeconds(2.5f));
-
-        
+        // 启动协程，等协程结束后再销毁宝箱
+        StartCoroutine(HideLootPanelAndDestroyAfterSeconds(2.5f));
     }
 
-    IEnumerator HideLootPanelAfterSeconds(float seconds)
+    IEnumerator HideLootPanelAndDestroyAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         lootUIPanel.SetActive(false);
 
-        
+        // 最后销毁宝箱对象
+        Destroy(gameObject);
     }
 }

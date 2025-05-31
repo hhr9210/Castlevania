@@ -43,18 +43,22 @@ public class PlayerSkill : MonoBehaviour
     }
 
     public List<Skill> skillList = new List<Skill>();
+    public PlayerMPAuto playerHealth;  // 血魔管理脚本
 
-    public PlayerMPAuto playerHealth;  // 角色的血魔管理脚本，确保赋值
+    [Header("圆圈技能设置")]
+    public GameObject skillCirclePrefab;  // 拖入圆圈预制体
+    public int skillCircleMPCost = 20;
+    public float skillCircleCooldown = 3f;
+    private float skillCircleCooldownTimer = 0f;
 
     void Start()
     {
         if (playerHealth == null)
             playerHealth = GetComponent<PlayerMPAuto>();
 
-        // 初始化三个技能，举例添加mpCost
-        skillList.Add(new Skill("平A", 1.0f, 0));          // 普通攻击不消耗MP
-        skillList.Add(new Skill("环圈弹幕", 5.0f, 30));   // 消耗30MP
-        skillList.Add(new Skill("隐身", 10.0f, 50));       // 消耗50MP
+        // 初始化两个技能（去掉平A）
+        skillList.Add(new Skill("环圈弹幕", 5.0f, 30));
+        skillList.Add(new Skill("隐身", 10.0f, 50));
     }
 
     void Update()
@@ -66,17 +70,24 @@ public class PlayerSkill : MonoBehaviour
             skill.UpdateCooldown(dt);
         }
 
+        if (skillCircleCooldownTimer > 0f)
+        {
+            skillCircleCooldownTimer -= dt;
+            if (skillCircleCooldownTimer < 0f)
+                skillCircleCooldownTimer = 0f;
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            TryUseSkill(0);//平a
+            TriggerSkillCircle();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TryUseSkill(1);//环圈弹幕
+            TryUseSkill(0); // 环圈弹幕
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            TryUseSkill(2);//隐身
+            TryUseSkill(1); // 隐身
         }
     }
 
@@ -98,7 +109,6 @@ public class PlayerSkill : MonoBehaviour
             return;
         }
 
-        // 扣除MP
         playerHealth.currentMP -= skill.mpCost;
 
         UseSkill(skill);
@@ -108,6 +118,36 @@ public class PlayerSkill : MonoBehaviour
     private void UseSkill(Skill skill)
     {
         Debug.Log($"释放技能：{skill.skillName}，消耗MP：{skill.mpCost}");
-        // 这里写具体技能逻辑
+        // 这里写其他技能逻辑
+    }
+
+    private void TriggerSkillCircle()
+    {
+        if (skillCircleCooldownTimer > 0f)
+        {
+            Debug.Log("圆圈技能还在冷却中");
+            return;
+        }
+
+        if (playerHealth.currentMP < skillCircleMPCost)
+        {
+            Debug.Log("魔法不足，无法释放圆圈技能");
+            return;
+        }
+
+        playerHealth.currentMP -= skillCircleMPCost;
+
+        SpawnSkillCircle();
+        skillCircleCooldownTimer = skillCircleCooldown;
+
+        Debug.Log($"释放圆圈技能，消耗MP：{skillCircleMPCost}");
+    }
+
+    private void SpawnSkillCircle()
+    {
+        GameObject circle = Instantiate(skillCirclePrefab, transform.position, Quaternion.identity);
+        circle.transform.SetParent(transform);  // 跟随玩家移动
+
+        Destroy(circle, 3f); // 圆圈存在3秒
     }
 }
