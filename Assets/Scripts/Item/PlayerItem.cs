@@ -123,25 +123,25 @@ public class PlayerItem : MonoBehaviour
         {
             case ItemType.HP_Potion:
                 playerStats.currentHP = Mathf.Min(playerStats.maxHP, playerStats.currentHP + 50);
-                message = "HP Potion Used   +50HP";
+                message = "Heal Used   +50HP";
                 break;
             case ItemType.MP_Potion:
                 playerStats.currentMP = Mathf.Min(playerStats.maxMP, playerStats.currentMP + 30);
-                message = "MP Potion Used   +30MP";
+                message = "Mana Used   +30MP";
                 break;
             case ItemType.SmallMoneyBag:
                 money += 50;
-                message = "Get 50 Gold";
+                message = "Treasure Used, Get 50 Gold";
                 break;
             case ItemType.SpeedPotion:
                 StartCoroutine(SpeedBoostCoroutine());
                 itemCooldownTimers[type] = itemCooldowns[type]; // 触发冷却
-                message = "Speed Up";
+                message = "Haste Used, Speed Up";
                 break;
             case ItemType.ReturnScroll:
                 transform.position = Vector3.zero;
                 itemCooldownTimers[type] = itemCooldowns[type]; // 触发冷却
-                message = "Turn Back to Birth";
+                message = "TP Used, Turn Back to Birth";
                 break;
         }
 
@@ -160,13 +160,15 @@ public class PlayerItem : MonoBehaviour
         playerMovement.moveSpeed /= 2f;
     }
 
+
+    //左上角物体1~5显示
     void UpdateUI()
     {
-        hpPotionText.text = "HPPotion - " + GetItemQuantity(ItemType.HP_Potion);
-        mpPotionText.text = "MPPotion - " + GetItemQuantity(ItemType.MP_Potion);
-        moneyText.text = "Money - " + money;
-        moveSpeedPotionText.text = "DashUP - " + GetItemQuantity(ItemType.SpeedPotion);
-        returnScrollText.text = "TP - " + GetItemQuantity(ItemType.ReturnScroll);
+        hpPotionText.text = "Heal " + GetItemQuantity(ItemType.HP_Potion);
+        mpPotionText.text = "Mana " + GetItemQuantity(ItemType.MP_Potion);
+        moneyText.text = "Treasure " + money;
+        moveSpeedPotionText.text = "Haste " + GetItemQuantity(ItemType.SpeedPotion);
+        returnScrollText.text = "TP " + GetItemQuantity(ItemType.ReturnScroll);
     }
 
     int GetItemQuantity(ItemType type)

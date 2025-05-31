@@ -74,15 +74,21 @@ public class BoxItem : MonoBehaviour
         lootUIPanel.SetActive(true);
         lootText.text = sb.ToString();
 
+        Debug.Log(sb.ToString());
+
+        Destroy(gameObject);
+
         // 启动协程2.5秒后隐藏宝箱物品信息面板
         StartCoroutine(HideLootPanelAfterSeconds(2.5f));
 
-        Debug.Log(sb.ToString());
+        
     }
 
     IEnumerator HideLootPanelAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         lootUIPanel.SetActive(false);
+
+        
     }
 }
